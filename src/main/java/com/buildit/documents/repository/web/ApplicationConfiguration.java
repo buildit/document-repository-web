@@ -2,10 +2,13 @@ package com.buildit.documents.repository.web;
 
 import com.buildit.documents.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.elasticsearch.jest.JestAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@SpringBootApplication(exclude = JestAutoConfiguration.class)
 public class ApplicationConfiguration {
 
     @Value("${cloud.aws.credentials.accessKey}")

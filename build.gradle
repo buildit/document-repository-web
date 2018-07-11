@@ -41,6 +41,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile "com.buildit.documents:document-repository:1.0.0"
     testCompile("junit:junit")
 }
@@ -59,7 +60,7 @@ task copyDockerFiles(type: Copy, dependsOn: bootJar) {
 }
 
 task buildDocker(type: Docker, dependsOn: bootJar) {
-    push = false
+    push = true
     applicationName = "builditdigital/${jar.baseName}"
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {
