@@ -17,7 +17,7 @@ public class IndexController {
     @Autowired
     private DocumentRepository documentRepository;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "${api.path}", method = RequestMethod.GET)
     public List<Document> index(@RequestParam(value = "q", required = false) String search) throws Exception {
         if(StringUtils.isNotEmpty(search)){
             return documentRepository.findAll(search);

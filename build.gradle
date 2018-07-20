@@ -28,7 +28,7 @@ build.dependsOn dependsOn: ['copyApp', 'copyDockerFiles']
 
 bootJar {
     baseName = 'document-repository-web'
-    version =  '0.1.0'
+    version =  '0.5.0'
 }
 
 repositories {
@@ -42,8 +42,9 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile "com.buildit.documents:document-repository:1.0.0"
+    compile "com.buildit.documents:document-repository:1.0.2"
     testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 task copyApp(type: Copy, dependsOn: bootJar) {
