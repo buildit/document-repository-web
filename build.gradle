@@ -23,12 +23,11 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker'
 
-
-build.dependsOn dependsOn: ['copyApp', 'copyDockerFiles']
+version =  '0.4.0'
 
 bootJar {
     baseName = 'document-repository-web'
-    version =  '0.1.0'
+    version =  "${project.version}"
 }
 
 repositories {
@@ -46,29 +45,21 @@ dependencies {
     testCompile("junit:junit")
 }
 
-task copyApp(type: Copy, dependsOn: bootJar) {
-    from bootJar
-    into "${project.buildDir}"
-    rename { String fileName ->
-        'app.jar'
-    }
-}
-
-task copyDockerFiles(type: Copy, dependsOn: bootJar) {
-    from 'src/main/docker'
-    into "${project.buildDir}"
-}
-
 task buildDocker(type: Docker, dependsOn: bootJar) {
-    push = true
+    push = false
     applicationName = "builditdigital/${jar.baseName}"
     dockerfile = file('src/main/docker/Dockerfile')
+    tagVersion = "${project.version}"
     doFirst {
         copy {
             from bootJar
             into stageDir
             rename { String fileName ->
                 'app.jar'
+            }
+            copy {
+                from 'src/main/docker'
+                into stageDir
             }
         }
     }
